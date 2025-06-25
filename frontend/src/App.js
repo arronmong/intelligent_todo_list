@@ -109,7 +109,7 @@ export default function App() {
 
         try {
             // Call the Flask backend to get the category
-            const response = await fetch('http://127.0.0.1:5001/categorize-task', {
+            const response = await fetch('https://intelligent-todo-api.onrender.com/categorize-task', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
