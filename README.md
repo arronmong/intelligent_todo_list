@@ -14,7 +14,7 @@ NOTE - Backend instance will spin down with inactivity, which can delay requests
 ### 📸 Screenshot
 
 ![Intelligent To-Do List Screenshot](https://i.imgur.com/yehkNlw.png)
-*(To add a screenshot, replace `placeholder.png` with a link to an image of your application.)*
+
 
 ---
 
