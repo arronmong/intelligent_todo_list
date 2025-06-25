@@ -6,14 +6,13 @@ An advanced to-do list application that automatically categorizes tasks using a 
 
 ### 🚀 Live Demo
 
-* **Frontend (Netlify):** [your-netlify-app-url.netlify.app](https://your-netlify-app-url.netlify.app)
-* **Backend API (Render):** [your-render-api-url.onrender.com](https://your-render-api-url.onrender.com)
+[ [[your-netlify-app-url.netlify.app](https://your-netlify-app-url.netlify.app)](https://beamish-pony-93b71a.netlify.app/)](https://beamish-pony-93b71a.netlify.app/)
+NOTE - Backend instance will spin down with inactivity, which can delay requests by 50 seconds or more.
 
-*(Replace the placeholder URLs above with your actual deployed URLs.)*
 
 ### 📸 Screenshot
 
-![Intelligent To-Do List Screenshot](placeholder.png)
+![Intelligent To-Do List Screenshot](https://i.imgur.com/yehkNlw.png)
 *(To add a screenshot, replace `placeholder.png` with a link to an image of your application.)*
 
 ---
