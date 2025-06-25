@@ -65,8 +65,8 @@ def categorize_task():
 def index():
     return "NLP Categorization API is running."
 
-# --- Main Execution ---
-if __name__ == "__main__":
-    # Runs the Flask app on port 5001 to avoid conflict with the React dev server (often on 3000 or 5173)
-    app.run(debug=True, port=5001)
+# --- Main Execution --- FOR RUNNING LOCALLY
+# if __name__ == "__main__":
+#     # Runs the Flask app on port 5001 to avoid conflict with the React dev server (often on 3000 or 5173)
+#     app.run(debug=True, port=5001)
 
