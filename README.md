@@ -6,7 +6,8 @@ An advanced to-do list application that automatically categorizes tasks using a 
 
 ### 🚀 Live Demo
 
-[ [[your-netlify-app-url.netlify.app](https://your-netlify-app-url.netlify.app)](https://beamish-pony-93b71a.netlify.app/)](https://beamish-pony-93b71a.netlify.app/)
+https://beamish-pony-93b71a.netlify.app/
+
 NOTE - Backend instance will spin down with inactivity, which can delay requests by 50 seconds or more.
 
 
