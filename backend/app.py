@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import spacy
+from flask_limiter import Limiter  # Import the Limiter
+from flask_limiter.util import get_remote_address # To identify users by IP address
 
 # --- Initialization ---
 app = Flask(__name__)
@@ -19,6 +21,13 @@ except OSError:
         "Please run 'python -m spacy download en_core_web_sm' to download it."
     )
     nlp = None
+# --- Rate Limiter Setup ---
+# Identify users by their IP address
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["200 per day", "50 per hour"] # Set default limits
+)
 
 # --- Keyword-based Categorization Rules ---
 # This is a simple rule-based system. It can be expanded with more sophisticated logic.
@@ -33,6 +42,7 @@ CATEGORY_KEYWORDS = {
 
 # --- API Endpoint ---
 @app.route("/categorize-task", methods=["POST"])
+@limiter.limit("10 per minute") # Example: Limit to 10 requests per minute per IP
 def categorize_task():
     """
     Analyzes the task text from the request and returns a suggested category.
