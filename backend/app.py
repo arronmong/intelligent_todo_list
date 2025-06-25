@@ -26,7 +26,7 @@ except OSError:
 limiter = Limiter(
     get_remote_address,
     app=app,
-    default_limits=["200 per day", "50 per hour"] # Set default limits
+    default_limits=["1000 per day", "50 per minute"] # Set default limits
 )
 
 # --- Keyword-based Categorization Rules ---
@@ -42,7 +42,7 @@ CATEGORY_KEYWORDS = {
 
 # --- API Endpoint ---
 @app.route("/categorize-task", methods=["POST"])
-@limiter.limit("10 per minute") # Example: Limit to 10 requests per minute per IP
+@limiter.limit("50 per minute") #Limit to 50 requests per minute per IP
 def categorize_task():
     """
     Analyzes the task text from the request and returns a suggested category.
