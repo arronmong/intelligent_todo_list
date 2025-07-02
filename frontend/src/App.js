@@ -101,6 +101,7 @@ export default function App() {
     }, [user]);
 
     // --- Task Management ---
+    // Add tasks
     const addTask = async (e) => {
         e.preventDefault();
         if (!newTask.trim() || !user) return;
@@ -147,8 +148,20 @@ export default function App() {
             setError("Failed to add task.");
         }
     };
-
-    // Simple NLP-like function (client-side placeholder)
+    //Update Task Category (Manually done by user)
+    const updateTaskCategory = async (taskId, newCategory) => {
+        const taskRef = doc(db, 'tasks', taskId);
+        try {
+            await updateDoc(taskRef, {
+                category: newCategory,
+                isUserCorrected: true // Flag this as a high-quality training example
+            });
+        } catch (error) {
+            console.error("Error updating task category:", error);
+            setError("Failed to update category.");
+        }
+    };
+    // Assign Task Category
     const getCategoryFromText = (text) => {
         const lowerText = text.toLowerCase();
         if (lowerText.includes('meeting') || lowerText.includes('report') || lowerText.includes('email')) {
@@ -175,7 +188,7 @@ export default function App() {
             setError("Failed to update task.");
         }
     };
-
+//delete tasks
     const deleteTask = async (taskId) => {
         const taskRef = doc(db, 'tasks', taskId);
         try {
@@ -245,43 +258,67 @@ export default function App() {
 }
 
 // --- TaskItem Component ---
-const TaskItem = ({ task, onToggle, onDelete }) => {
+const TaskItem = ({ task, onToggle, onDelete, onCategoryChange }) => {
     
+    // The list of categories users can choose from.
+    const categories = ['Work', 'Personal', 'Urgent', 'Finance', 'Learning', 'General'];
+
     const getCategoryPill = (category) => {
         const styles = {
             'Work': 'bg-blue-500 text-blue-100',
             'Personal': 'bg-green-500 text-green-100',
             'Urgent': 'bg-yellow-500 text-yellow-100',
+            'Finance': 'bg-purple-500 text-purple-100',
+            'Learning': 'bg-indigo-500 text-indigo-100',
             'General': 'bg-gray-500 text-gray-100'
         };
-        return (
-            <span className={`text-xs font-semibold px-2 py-1 rounded-full ${styles[category] || styles['General']}`}>
-                {category}
-            </span>
-        );
+        return styles[category] || styles['General'];
     }
     
     return (
         <div className={`flex items-center justify-between p-4 rounded-lg transition duration-300 ${task.completed ? 'bg-gray-800' : 'bg-gray-700'}`}>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 flex-grow">
                 <input
                     type="checkbox"
                     checked={task.completed}
                     onChange={() => onToggle(task)}
-                    className="h-6 w-6 rounded text-cyan-500 bg-gray-800 border-gray-600 focus:ring-cyan-500"
+                    className="h-6 w-6 rounded text-cyan-500 bg-gray-800 border-gray-600 focus:ring-cyan-500 shrink-0"
                 />
                 <span className={`flex-1 ${task.completed ? 'line-through text-gray-500' : ''}`}>
                     {task.text}
                 </span>
             </div>
             <div className="flex items-center gap-3">
-                {task.category && getCategoryPill(task.category)}
+                {/* Category dropdown */}
+                <select 
+                    value={task.category} 
+                    onChange={(e) => onCategoryChange(task.id, e.target.value)}
+                    className={`text-xs font-semibold px-2 py-1 rounded-full border-none outline-none appearance-none cursor-pointer ${getCategoryPill(task.category)}`}
+                >
+                    {categories.map(cat => (
+                        <option key={cat} value={cat} className="bg-gray-700 text-white">
+                            {cat}
+                        </option>
+                    ))}
+                </select>
+
                 <button onClick={() => onDelete(task.id)} className="text-gray-500 hover:text-red-500 transition duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                 </button>
             </div>
+            <div className="space-y-4">
+    {tasks.map(task => (
+        <TaskItem 
+            key={task.id} 
+            task={task} 
+            onToggle={toggleComplete} 
+            onDelete={deleteTask}
+            onCategoryChange={updateTaskCategory} // Add this line
+        />
+    ))}
+</div>
         </div>
     )
 }
