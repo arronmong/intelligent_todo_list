@@ -4,21 +4,21 @@ An advanced to-do list application that automatically categorizes tasks using a 
 
 ---
 
-### 🚀 Live Demo
+###  Live Demo
 
 https://beamish-pony-93b71a.netlify.app/
 
 NOTE - Backend instance will spin down with inactivity, which can delay requests by 50 seconds or more.
 
 
-### 📸 Screenshot
+###  Screenshot
 
 ![Intelligent To-Do List Screenshot](https://i.imgur.com/yehkNlw.png)
 
 
 ---
 
-### ✨ Core Features
+###  Core Features
 
 * **Automatic Task Categorization:** A Python backend with `spaCy` analyzes task descriptions and assigns categories like "Work," "Personal," or "Urgent."
 * **Secure Authentication:** Users can sign in securely and easily with their GitHub accounts via Firebase Authentication.
@@ -29,7 +29,7 @@ NOTE - Backend instance will spin down with inactivity, which can delay requests
 
 ---
 
-### 🛠️ Tech Stack
+### Tech Stack
 
 * **Frontend:**
     * ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
